@@ -6,7 +6,10 @@ $(document).ready(function () {
   var modal = $(".modal");
   var modalCloseButton = $(".modal-close-button");
   var viewFlatsButton = $(".view-flats");
-
+  
+  var flatPath = $(".flats path"); // каждая отдельная квартира на схеме
+  var currentFlat = 1; // переменная, где хранится текущая квартира
+  var flatPathItem = $(".flat-item a"); //переменная, где хранится название квартиры
 
   // функция при наведении мышью на этаж
   floorPath.on('mouseover', function(){
@@ -45,5 +48,24 @@ $(document).ready(function () {
   function toggleModal(){  /* функция открыть-закрыть окно */
     modal.toggleClass("is-open");
   }
+
+
+  // функция при наведении мышью на квартиру
+  flatPath.on('mouseover', function(){
+    currentFlat = $(this).attr("data-flat"); // получаем значение текущего этажа
+    flatPath.removeClass("current-flat"); // удаляем активный класс у квартиры
+    flatPathItem.removeClass("current-flats-item");
+    $(`[data-flat=${currentFlat}]`).toggleClass("current-flat"); // подсвечиваем текущий этаж
+    $(`[data-item=${currentFlat}]`).toggleClass("current-flats-item"); // подсвечиваем текущий этаж
+  });
+
+  // функция при наведении мышью на квартиру
+  flatPathItem.on('mouseover', function(){
+    currentFlat = $(this).attr("data-item"); // получаем значение текущего этажа
+    flatPath.removeClass("current-flat"); // удаляем активный класс у квартиры
+    flatPathItem.removeClass("current-flats-item");
+    $(`[data-flat=${currentFlat}]`).toggleClass("current-flat"); // подсвечиваем текущий этаж
+    $(`[data-item=${currentFlat}]`).toggleClass("current-flats-item"); // подсвечиваем текущий этаж
+  });
 
 }); 
